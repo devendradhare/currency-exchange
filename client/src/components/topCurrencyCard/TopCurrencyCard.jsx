@@ -13,7 +13,7 @@ const FavouriteCard = ({ currency, show }) => {
         <span>{show}</span>
         <span className={Styles.currencySymbol2}>
           {getSymbolFromCurrency(show)}
-          {(currency.rates[show] || 1).toFixed(3)}
+          {currency.rates[show] || 1}
         </span>
       </div>
       <span>INDIA</span>
@@ -201,7 +201,7 @@ const TopCurrencyCard = (props) => {
         <FavouriteCard currency={props.currency} show={"INR"} />
         <FavouriteCard currency={props.currency} show={"JPY"} />
         <FavouriteCard currency={props.currency} show={"USD"} />
-        <FavouriteCard currency={props.currency} show={"PKR"} />
+        <FavouriteCard currency={props.currency} show={"RUB"} />
         <FavouriteCard currency={props.currency} show={"BTC"} />
         <FavouriteCard currency={props.currency} show={"ETH"} />
       </div>

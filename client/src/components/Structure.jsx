@@ -315,10 +315,10 @@ const Structure = () => {
     { country: "zm", currencyCode: "ZMK", value: 9001.203591 },
     { country: "zm", currencyCode: "ZMW", value: 27.180995 },
   ]);
+  const [width, setWidth] = React.useState(window.innerWidth / 2);
 
   React.useEffect(() => {
-    fetch(
-      `https://api.forexrateapi.com/v1/latest?api_key=06f2d61bdefdfcae6fe23458ea9bead3&base=${selectedOption}`)
+    fetch(`${import.meta.env.VITE_FOREX_RATE_API}${selectedOption}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
@@ -335,21 +335,30 @@ const Structure = () => {
     setData((prev) => {
       return prev.map((obj) => {
         return {
-          ...obj, // Copy existing properties
-          value: currency.rates[obj.currencyCode], // Update the 'value' property
+          ...obj,
+          value: currency.rates[obj.currencyCode],
         };
       });
     });
   }, [currency]);
+  React.useEffect(() => {
+    const handleResize = () => {
+      setWidth(width > 400 ? window.innerWidth / 2 : width);
+      console.log("width: " + width);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <section className={Styles.appbody}>
       <nav className={Styles.navbar}>currency exchange rate</nav>
       <section className={Styles.content}>
-        <SvgWorldMap data={data} />
+        {width > 400 && <SvgWorldMap data={data} width={width} />}
         <div className={Styles.currencyData}>
           <TopCurrencyCard
-            // base={currency.base}
             currency={currency}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
@@ -383,112 +392,3 @@ const Structure = () => {
 };
 
 export default Structure;
-
-{
-  /* <div style={{ width: "50", height: "50" }}>
-        <VectorMap
-          ref={mapRef}
-          // zoomOnScroll={false}
-          // zoomButtons={false}
-          map={"world_mill"}
-          backgroundColor="white"
-          containerStyle={{
-            width: "100%",
-            height: "100%",
-          }}
-        //   markerStyle={{
-        //     initial: {
-        //       fill: "#5E32CA",
-        //       stroke: "#383f47",
-        //     },
-        //   }}
-        //   containerClassName="map"
-        //   series={{
-        //     regions: [
-        //       {
-        //         scale: ["#E2AEFF", "#5E32CA"],
-        //         attribute: "fill",
-        //         values: { SG: 100, IN: 100 },
-        //         normalizeFunction: "polynomial",
-        //         min: 0,
-        //         max: 100,
-        //       },
-        //     ],
-        //   }}
-          // seri/
-        //   markers={[
-        //     {
-        //       latLng: [1.3521, 103.8198],
-        //       name: "Singapore",
-        //     },
-        //   ]}
-          regionStyle={{
-            initial: {
-              fill: "#D1D5DB",
-              "fill-opacity": 1,
-              stroke: "#265cff",
-              "stroke-width": 0,
-              "stroke-opacity": 0,
-            },
-            hover: {
-              "fill-opacity": 0.8,
-              fill: "",
-              stroke: "#2b2b2b",
-            },
-            selected: {
-              fill: "#FFFB00",
-            },
-          }}
-          // onMarkerTipShow={function (event, label, index) {
-          //   label.html(
-          //     '<div style="background-color: white; border: 1px solid; min-height: 100px; max-width: 250px">' +
-          //       "<b style='color: red;'>" +
-          //       "Rsc" +
-          //       "</b><br/>" +
-          //       "<b>Population:</b>" +
-          //       "test" +
-          //       "</br>" +
-          //       "<b>Unemployment rate: </b>" +
-          //       "kay" +
-          //       "%" +
-          //       "</div>"
-          //   );
-          // }}
-          onRegionTipShow={function (event, label, code, ...props) {
-            console.log("-----> ", label.html(), event, label, code, props);
-            label.html(
-              '<div style="background-color: white; border: 1px solid white; outline: 10px solid white; border-radius: 5px; min-height: 70px; width: 150px; color: black"; padding-left: 10px>' +
-                "<p>" +
-                "<b>" +
-                label.html() +
-                "</b>" +
-                "</p>" +
-                "<p>" +
-                "Count: " +
-                "<b> Count</b>" +
-                "</p>" +
-                "</div>"
-            );
-          }}
-          regions={[
-            {
-              scale: {
-                red: "#ff0000",
-                green: "#00ff00"
-              },
-              attribute: "fill",
-              values: {
-                "US-KS": "red",
-                "US-MO": "red",
-                "US-IA": "green",
-                "US-NE": "green"
-              },
-              legend: {
-                horizontal: true,
-                title: "Color"
-              }
-            }
-          ]}
-        />
-      </div> */
-}
