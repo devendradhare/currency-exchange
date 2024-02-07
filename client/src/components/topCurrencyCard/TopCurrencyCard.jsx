@@ -6,7 +6,7 @@ import Select from "react-select";
 // CSS
 import Styles from "./topCurrencyCard.module.css";
 
-const FavouriteCard = ({ currency, show }) => {
+const FavouriteCard = ({ currency, show, country }) => {
   return (
     <div className={`${Styles.favouriteCard}`}>
       <div>
@@ -16,7 +16,7 @@ const FavouriteCard = ({ currency, show }) => {
           {currency.rates[show] || 1}
         </span>
       </div>
-      <span>INDIA</span>
+      <span>{country}</span>
     </div>
   );
 };
@@ -194,16 +194,15 @@ const TopCurrencyCard = (props) => {
         <span className={Styles.currencySymbol}>
           {getSymbolFromCurrency(props.currency.base)}1.00
         </span>
-        <span>United State america</span>
       </div>
 
       <div className={Styles.favouriteCards}>
-        <FavouriteCard currency={props.currency} show={"INR"} />
-        <FavouriteCard currency={props.currency} show={"JPY"} />
-        <FavouriteCard currency={props.currency} show={"USD"} />
-        <FavouriteCard currency={props.currency} show={"RUB"} />
-        <FavouriteCard currency={props.currency} show={"BTC"} />
-        <FavouriteCard currency={props.currency} show={"ETH"} />
+        <FavouriteCard currency={props.currency} show={"INR"} country={"INDIA"} />
+        <FavouriteCard currency={props.currency} show={"JPY"} country={"JAPAN"} />
+        <FavouriteCard currency={props.currency} show={"USD"} country={"UNITED STATE"} />
+        <FavouriteCard currency={props.currency} show={"RUB"} country={"RUSSIA"} />
+        <FavouriteCard currency={props.currency} show={"BTC"} country={"BITCOIN"} />
+        <FavouriteCard currency={props.currency} show={"ETH"} country={"ETHEREUM"} />
       </div>
     </div>
   );
