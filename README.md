@@ -28,7 +28,7 @@ https://devendradhare.github.io/currency-exchange/
 2. **Navigate to the Project Directory:**
 
 ```bash
-cd currency-exchange-monitor
+cd currency-exchange
 ```
 
 3. **Install Dependencies:**
