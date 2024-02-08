@@ -22,7 +22,7 @@ https://devendradhare.github.io/currency-exchange/
 1. **Clone the Repository:**
 
 ```bash
-   git clone https://github.com/your-username/currency-exchange-monitor.git
+   git clone https://github.com/devendradhare/currency-exchange.git
 ```
 
 2. **Navigate to the Project Directory:**
